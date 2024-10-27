@@ -1,0 +1,86 @@
+# This is a basic workflow that is manually triggered
+
+name: Выставить лимитную заявку
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      token:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Введите REFRESH_TOKEN:'
+        # Default value if no value is explicitly provided
+        default: ''
+        # Input has to be provided for the workflow to run
+        required: true
+        # The data type of the input
+        type: string
+      account_id:
+        description: 'Введите ALOR_USERNAME (P849383, например):'
+        default: ''
+        required: true
+        type: string
+      ticker:
+        description: 'Введите ticker:'
+        default: ''
+        required: true
+        type: string
+      quantity:
+        description: 'Введите количество:'
+        default: ''
+        required: true
+        type: string
+      direction:
+        description: 'Введите sell или buy:'
+        default: ''
+        required: true
+        type: string
+      units:
+        description: 'Введите целую часть цены:'
+        default: ''
+        required: true
+        type: string
+      nano:
+        description: 'Введите дробную часть цены(9 цифр):'
+        default: ''
+        required: true
+        type: string
+
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "greet"
+  greet:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+    # Runs a single command using the runners shell
+    - name: Checkout code
+      uses: actions/checkout@v4.1.7
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.9'
+    - name: Display Python version
+      run: python3 -c "import sys; print(sys.version)"
+    - name: Create venv
+      run: python3 -m venv ./venv
+    - name: activate venv
+      run: source venv/bin/activate
+    - name: install dependencies
+      run: python3 -m pip install -r requirements.txt
+    - name: run bot
+      run: python3 order_loop.py
+      env:
+        REFRESH_TOKEN: ${{ inputs.token }}
+        ALOR_USERNAME: ${{ inputs.account_id }}
+        ORDER_DIRECTION: ${{ inputs.direction }}
+        ORDER_TICKER: ${{ inputs.ticker }}
+        ORDER_UNITS: ${{ inputs.units }}
+        ORDER_NANO: ${{ inputs.nano }}
+        ORDER_QUANTITY: ${{ inputs.quantity }}
+        PYTHONPATH: ./:${PYTHONPATH}
+        PYTHONUNBUFFERED: "1"
