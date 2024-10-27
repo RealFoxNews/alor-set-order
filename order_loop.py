@@ -27,7 +27,7 @@ def execute_code(price: float):
                                   price=price,
                                   side=ORDER_DIRECTION
                                   )
-    print('\n Установить лимитную заявку: купить {ORDER_QUANTITY} лотов {ORDER_TICKER}} по 290')
+    print(f'\n Установить лимитную заявку: купить {ORDER_QUANTITY} лотов {ORDER_TICKER} по 290')
     print(result)
     return result
 
