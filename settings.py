@@ -9,6 +9,13 @@ TTL_JWT_TOKEN = 60
 USERNAME = os.getenv('ALOR_USERNAME')
 EXCHANGE = 'MOEX'
 REFRESH_TOKEN = os.getenv('REFRESH_TOKEN')
+DELAY = os.getenv('DELAY')
+ORDER_DIRECTION = os.getenv("ORDER_DIRECTION")
+ORDER_TICKER = os.getenv("ORDER_TICKER")
+ORDER_UNITS = os.getenv("ORDER_UNITS")
+ORDER_NANO = os.getenv("ORDER_NANO")
+ORDER_QUANTITY = os.getenv("ORDER_QUANTITY")
+
 URL_OAUTH = f'https://oauth{"dev" if DEVMODE else ""}.alor.ru'
 URL_API = f'https://api{"dev" if DEVMODE else ""}.alor.ru'
 

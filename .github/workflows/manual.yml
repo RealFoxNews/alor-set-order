@@ -22,6 +22,11 @@ on:
         default: ''
         required: true
         type: string
+      delay:
+        description: 'Задержка в секундах между попытками выставить заявку (0.1, например):'
+        default: ''
+        required: true
+        type: string
       ticker:
         description: 'Введите ticker:'
         default: ''
@@ -38,12 +43,12 @@ on:
         required: true
         type: string
       units:
-        description: 'Введите целую часть цены:'
+        description: 'Введите целую часть цены (до точки):'
         default: ''
         required: true
         type: string
       nano:
-        description: 'Введите дробную часть цены(9 цифр):'
+        description: 'Введите дробную часть цены (после точки):'
         default: ''
         required: true
         type: string
@@ -77,6 +82,7 @@ jobs:
       env:
         REFRESH_TOKEN: ${{ inputs.token }}
         ALOR_USERNAME: ${{ inputs.account_id }}
+        DELAY: ${{ inputs.delay }}
         ORDER_DIRECTION: ${{ inputs.direction }}
         ORDER_TICKER: ${{ inputs.ticker }}
         ORDER_UNITS: ${{ inputs.units }}
